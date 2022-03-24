@@ -1,0 +1,65 @@
+{
+  "name": "@oyster/utils",
+  "version": "0.1.0",
+  "description": "Collection of utility functions for common JavaScript/TypeScript task",
+  "main": "./dist/index.umd.js",
+  "module": "./dist/index.es.js",
+  "scripts": {
+    "dev": "vite preview",
+    "build": "vite build",
+    "test": "vitest",
+    "coverage": "vitest run --coverage"
+  },
+  "author": "Oyster Lee <oysterd3@gmail.com>",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^17.0.23",
+    "@typescript-eslint/eslint-plugin": "^5.16.0",
+    "@typescript-eslint/parser": "^5.16.0",
+    "eslint": "^8.11.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "jsdom": "^19.0.0",
+    "prettier": "^2.6.0",
+    "puppeteer": "^13.5.1",
+    "typescript": "^4.6.2",
+    "vite": "^2.8.6",
+    "vite-plugin-dts": "^1.0.2",
+    "vitest": "^0.7.10"
+  },
+  "eslintConfig": {
+    "root": true,
+    "env": {
+      "es6": true
+    },
+    "plugins": [
+      "@typescript-eslint",
+      "prettier"
+    ],
+    "parser": "@typescript-eslint/parser",
+    "extends": [
+      "eslint:recommended",
+      "plugin:@typescript-eslint/recommended",
+      "prettier"
+    ],
+    "rules": {
+      "prettier/prettier": "error",
+      "@typescript-eslint/no-explicit-any": "off",
+      "@typescript-eslint/no-this-alias": [
+        "error",
+        {
+          "allowDestructuring": false,
+          "allowedNames": [
+            "self"
+          ]
+        }
+      ]
+    }
+  },
+  "prettier": {
+    "semi": true,
+    "trailingComma": "all",
+    "singleQuote": false,
+    "arrowParens": "always"
+  }
+}
