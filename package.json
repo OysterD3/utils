@@ -10,8 +10,17 @@
     "test": "vitest",
     "coverage": "vitest run --coverage"
   },
+  "homepage": "https://github.com/OysterD3/utils#readme",
+  "bugs": {
+    "url": "https://github.com/OysterD3/utils/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/OysterD3/utils.git"
+  },
+  "keywords": ["utils", "helpers"],
   "author": "Oyster Lee <oysterd3@gmail.com>",
-  "license": "ISC",
+  "license": "MIT",
   "devDependencies": {
     "@types/node": "^17.0.23",
     "@typescript-eslint/eslint-plugin": "^5.16.0",
