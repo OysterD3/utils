@@ -8,7 +8,8 @@
     "dev": "vite preview",
     "build": "vite build",
     "test": "vitest",
-    "coverage": "vitest run --coverage"
+    "coverage": "vitest run --coverage",
+    "prepublishOnly": "npm run build"
   },
   "publishConfig": {
     "access": "public"
