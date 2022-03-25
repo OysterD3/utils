@@ -1,5 +1,5 @@
 {
-  "name": "@oyster/utils",
+  "name": "@oysterlee/utils",
   "version": "0.1.0",
   "description": "Collection of utility functions for common JavaScript/TypeScript task",
   "main": "./dist/index.umd.js",
