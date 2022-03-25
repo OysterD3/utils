@@ -19,6 +19,9 @@ npm i @oysterlee/utils
 yarn add @oysterlee/utils
 ```
 
+## Basic usage
+Checkout the documentation [https://oysterd3.github.io/utils/](https://oysterd3.github.io/utils/)
+
 
 ## TODO
 - [x] Documentation
