@@ -1,0 +1,209 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title> number/index.ts</title>
+
+  <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="./build/entry.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,400,700|Inconsolata,700" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+  <link type="text/css" rel="stylesheet" href="https://jmblog.github.io/color-themes-for-google-code-prettify/themes/tomorrow-night.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/app.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/iframe.css">
+  <link type="text/css" rel="stylesheet" href="">
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+  
+</head>
+
+
+
+<body class="layout small-header">
+    <div id="stickyNavbarOverlay"></div>
+    
+
+<div class="top-nav">
+    <div class="inner">
+        <a id="hamburger" role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+        </a>
+        <div class="logo">
+            
+            
+        </div>
+        <div class="menu">
+            
+            <div class="navigation">
+                <a
+                    href="index.html"
+                    class="link"
+                >
+                    Documentation
+                </a>
+                
+                
+                
+            </div>
+        </div>
+    </div>
+</div>
+    <div id="main">
+        <div
+            class="sidebar "
+            id="sidebarNav"
+        >
+            
+            <nav>
+                
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"></div><div class="category"><h2>Array</h2><h3>Global</h3><ul><li><a href="global.html#cartesian">cartesian</a></li><li><a href="global.html#difference">difference</a></li><li><a href="global.html#differenceBy">differenceBy</a></li><li><a href="global.html#move">move</a></li><li><a href="global.html#toObject">toObject</a></li><li><a href="global.html#uniqueArray">uniqueArray</a></li><li><a href="global.html#uniqueArrayByKey">uniqueArrayByKey</a></li></ul></div><div class="category"><h2>Browser</h2><h3>Global</h3><ul><li><a href="global.html#deleteCookie">deleteCookie</a></li><li><a href="global.html#getCookie">getCookie</a></li><li><a href="global.html#setCookie">setCookie</a></li></ul></div><div class="category"><h2>Checker</h2><h3>Global</h3><ul><li><a href="global.html#isEqual">isEqual</a></li><li><a href="global.html#isFalsey">isFalsey</a></li><li><a href="global.html#isObject">isObject</a></li></ul></div><div class="category"><h2>Collection</h2><h3>Global</h3><ul><li><a href="global.html#deepClone">deepClone</a></li><li><a href="global.html#get">get</a></li><li><a href="global.html#has">has</a></li></ul></div><div class="category"><h2>DOM</h2><h3>Global</h3><ul><li><a href="global.html#getAttribute">getAttribute</a></li><li><a href="global.html#getElement">getElement</a></li><li><a href="global.html#off">off</a></li><li><a href="global.html#on">on</a></li></ul></div><div class="category"><h2>Function</h2><h3>Global</h3><ul><li><a href="global.html#debounce">debounce</a></li></ul></div><div class="category"><h2>Number</h2><h3>Global</h3><ul><li><a href="global.html#clamp">clamp</a></li><li><a href="global.html#formatMoney">formatMoney</a></li><li><a href="global.html#random">random</a></li></ul></div><div class="category"><h2>String</h2><h3>Global</h3><ul><li><a href="global.html#slugify">slugify</a></li><li><a href="global.html#truncate">truncate</a></li></ul></div>
+                
+            </nav>
+        </div>
+        <div class="core" id="main-content-wrapper">
+            <div class="content">
+                <header class="page-title">
+                    <p>Source</p>
+                    <h1>number/index.ts</h1>
+                </header>
+                
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import { isFalsey } from "../checker";
+
+/**
+ * Clamps n within the min and max number
+ * @method
+ * @param n {number} The number to clamp
+ * @param min {number} The minimum number
+ * @param max {number} The maximum number
+ * @return {number} Returns the clamped number
+ * @example
+ * clamp(-100, 0, 100) // 0
+ * clamp(200, 0, 100) // 100
+ * @category Number
+ * @version v0.1.0
+ */
+export const clamp = (n: number, min: number, max: number): number => {
+  return Math.min(max, Math.max(min, n));
+};
+
+/**
+ * Randomize number between the min and max number
+ * @method
+ * @param min {number} The minimum number
+ * @param max {number} The maximum number
+ * @return {number} Returns the random number
+ * @category Number
+ * @version v0.1.0
+ */
+export const random = (min: number, max: number): number => {
+  return Math.floor(Math.random() * max + min);
+};
+
+/**
+ * Format to a standard money string. Credits: https://stackoverflow.com/a/149099/6820538
+ * @method
+ * @category Number
+ * @version v0.1.0
+ */
+export const formatMoney = ({
+  prefix = null,
+  suffix = null,
+  decimalCount = 2,
+  decimal = ".",
+  thousands = ",",
+}: {
+  prefix?: null | string;
+  suffix?: null | string;
+  decimalCount?: number;
+  decimal?: string;
+  thousands?: string;
+}): ((amount: string | number) => string | undefined) => {
+  return (amount: string | number): string | undefined => {
+    if (typeof amount === "string" &amp;&amp; !isNaN(parseFloat(amount))) {
+      amount = parseFloat(amount);
+    } else if (typeof amount === "string") {
+      return amount;
+    }
+    if (!isFalsey(amount)) {
+      const findDecimal = amount.toString().split(".");
+      if (findDecimal.length > 1 &amp;&amp; findDecimal[1].length > decimalCount) {
+        return amount.toString();
+      }
+    }
+    try {
+      decimalCount = Math.abs(decimalCount);
+      decimalCount = isNaN(decimalCount) ? 2 : decimalCount;
+
+      const negativeSign = amount &lt; 0 ? "-" : "";
+
+      const i = parseInt(
+        (amount = Math.abs(Number(amount) || 0).toFixed(decimalCount)),
+      ).toString();
+      const j = i.length > 3 ? i.length % 3 : 0;
+
+      return (
+        negativeSign +
+        (prefix ?? "") +
+        (j ? i.substring(0, j) + thousands : "") +
+        i.substring(j).replace(/(\d{3})(?=\d)/g, "$1" + thousands) +
+        (decimalCount
+          ? decimal +
+            Math.abs(Number(amount) - Number(i))
+              .toFixed(decimalCount)
+              .slice(2)
+          : "") +
+        (suffix ?? "")
+      );
+    } catch (e) {
+      console.log(e);
+    }
+  };
+};
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+            </div>
+            
+            <footer class="footer">
+                <div class="content has-text-centered">
+                    <p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.10</a></p>
+                    <p class="sidebar-created-by">
+                        <a href="https://github.com/SoftwareBrothers/better-docs" target="_blank">BetterDocs theme</a> provided with <i class="fas fa-heart"></i> by
+                        <a href="http://softwarebrothers.co" target="_blank">SoftwareBrothers - JavaScript Development Agency</a>
+                    </p>
+                </div>
+            </footer>
+            
+        </div>
+        <div id="side-nav" class="side-nav">
+        </div>
+    </div>
+<script src="scripts/app.min.js"></script>
+<script>PR.prettyPrint();</script>
+<script src="scripts/linenumber.js"> </script>
+
+
+</body>
+</html>

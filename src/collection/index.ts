@@ -1,8 +1,17 @@
 import type { NestedObject, NonNullish, Nullable } from "../types";
 
 /**
- * @param value {any}
- * @returns {any}
+ * Deep clone object or array
+ * @method
+ * @param value {T}
+ * @returns {T}
+ * @example
+ * const obj = { foo: { bar: 1 } }
+ * const clone = deepClone(obj)
+ * clone.foo.bar = 2;
+ * console.log(obj.foo.bar) // 1
+ * @category Collection
+ * @version v0.1.0
  */
 export const deepClone = <T>(value: T): T => {
   if (Array.isArray(value)) return [...value] as unknown as T;
@@ -15,6 +24,18 @@ export const deepClone = <T>(value: T): T => {
   return value;
 };
 
+/**
+ * Check if key exist from provided path
+ * @method
+ * @param obj {Record<string, any>}
+ * @param path {string}
+ * @returns {boolean}
+ * @example
+ * has({ foo: { bar: 1 } }, "foo.bar") // true
+ * has({ foo: { bar: 1 } }, "bar") // false
+ * @category Collection
+ * @version v0.1.0
+ */
 export const has = (obj: NestedObject, path: string): boolean => {
   return (
     path
@@ -27,6 +48,20 @@ export const has = (obj: NestedObject, path: string): boolean => {
   );
 };
 
+/**
+ * Get value from provided path, if not found, return default value if any
+ * @method
+ * @param obj {Record<string, any>}
+ * @param path {string}
+ * @param defaultValue {T=}
+ * @returns {boolean}
+ * @example
+ * get({ foo: { bar: 1 } }, "foo.bar") // 1
+ * get({ foo: { bar: 1 } }, "bar", null) // null
+ * get({ foo: { bar: 1 } }, "bar") // undefined
+ * @category Collection
+ * @version v0.1.0
+ */
 export const get = <T>(
   obj: NestedObject,
   path: string,

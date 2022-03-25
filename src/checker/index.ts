@@ -1,4 +1,17 @@
-export const isFalsey = (val: any) => {
+/**
+ * Check value is undefined, null, empty string, empty set,
+ * empty map, empty array, empty object, negative value and of course false
+ * @method
+ * @param val {any} The value to inspect
+ * @return {boolean}
+ * @example
+ * isFalsey(0) // false
+ * isFalsey(-1) // true
+ * isFalsey(false) // true
+ * @category Checker
+ * @version v0.1.0
+ */
+export const isFalsey = (val: any): boolean => {
   if (val instanceof Map || val instanceof Set) {
     return val.size === 0;
   }
@@ -17,10 +30,33 @@ export const isFalsey = (val: any) => {
   );
 };
 
-export const isObject = (obj: any) =>
-  obj !== null && typeof obj === "object" && !Array.isArray(obj);
+/**
+ * Check value is object
+ * @method
+ * @param val {any} The value to inspect
+ * @return {boolean}
+ * @example
+ * isObject({}) // true
+ * isObject([]) // false
+ * @category Checker
+ * @version v0.1.0
+ */
+export const isObject = (val: any): boolean =>
+  val !== null && typeof val === "object" && !Array.isArray(val);
 
-export const isEqual = (val1: any, val2: any) => {
+/**
+ * Check both value are equal
+ * @method
+ * @param val1 {any} The value to inspect
+ * @param val2 {any} The value to compare
+ * @return {boolean}
+ * @example
+ * isEqual([1], [1]) // true
+ * isEqual([1], [2]) // false
+ * @category Checker
+ * @version v0.1.0
+ */
+export const isEqual = (val1: any, val2: any): boolean => {
   // Credits: https://dmitripavlutin.com/how-to-compare-objects-in-javascript
   if (isObject(val1) && isObject(val2)) {
     const keys1 = Object.keys(val1);

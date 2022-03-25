@@ -21,5 +21,5 @@ yarn add @oysterlee/utils
 
 
 ## TODO
-- [ ] Documentation
+- [x] Documentation
 - [ ] Unit test for DOM

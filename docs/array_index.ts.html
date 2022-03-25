@@ -1,0 +1,263 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title> array/index.ts</title>
+
+  <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="./build/entry.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,400,700|Inconsolata,700" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+  <link type="text/css" rel="stylesheet" href="https://jmblog.github.io/color-themes-for-google-code-prettify/themes/tomorrow-night.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/app.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/iframe.css">
+  <link type="text/css" rel="stylesheet" href="">
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+  
+</head>
+
+
+
+<body class="layout small-header">
+    <div id="stickyNavbarOverlay"></div>
+    
+
+<div class="top-nav">
+    <div class="inner">
+        <a id="hamburger" role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+        </a>
+        <div class="logo">
+            
+            
+        </div>
+        <div class="menu">
+            
+            <div class="navigation">
+                <a
+                    href="index.html"
+                    class="link"
+                >
+                    Documentation
+                </a>
+                
+                
+                
+            </div>
+        </div>
+    </div>
+</div>
+    <div id="main">
+        <div
+            class="sidebar "
+            id="sidebarNav"
+        >
+            
+            <nav>
+                
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"></div><div class="category"><h2>Array</h2><h3>Global</h3><ul><li><a href="global.html#cartesian">cartesian</a></li><li><a href="global.html#difference">difference</a></li><li><a href="global.html#differenceBy">differenceBy</a></li><li><a href="global.html#move">move</a></li><li><a href="global.html#toObject">toObject</a></li><li><a href="global.html#uniqueArray">uniqueArray</a></li><li><a href="global.html#uniqueArrayByKey">uniqueArrayByKey</a></li></ul></div><div class="category"><h2>Browser</h2><h3>Global</h3><ul><li><a href="global.html#deleteCookie">deleteCookie</a></li><li><a href="global.html#getCookie">getCookie</a></li><li><a href="global.html#setCookie">setCookie</a></li></ul></div><div class="category"><h2>Checker</h2><h3>Global</h3><ul><li><a href="global.html#isEqual">isEqual</a></li><li><a href="global.html#isFalsey">isFalsey</a></li><li><a href="global.html#isObject">isObject</a></li></ul></div><div class="category"><h2>Collection</h2><h3>Global</h3><ul><li><a href="global.html#deepClone">deepClone</a></li><li><a href="global.html#get">get</a></li><li><a href="global.html#has">has</a></li></ul></div><div class="category"><h2>DOM</h2><h3>Global</h3><ul><li><a href="global.html#getAttribute">getAttribute</a></li><li><a href="global.html#getElement">getElement</a></li><li><a href="global.html#off">off</a></li><li><a href="global.html#on">on</a></li></ul></div><div class="category"><h2>Function</h2><h3>Global</h3><ul><li><a href="global.html#debounce">debounce</a></li></ul></div><div class="category"><h2>Number</h2><h3>Global</h3><ul><li><a href="global.html#clamp">clamp</a></li><li><a href="global.html#formatMoney">formatMoney</a></li><li><a href="global.html#random">random</a></li></ul></div><div class="category"><h2>String</h2><h3>Global</h3><ul><li><a href="global.html#slugify">slugify</a></li><li><a href="global.html#truncate">truncate</a></li></ul></div>
+                
+            </nav>
+        </div>
+        <div class="core" id="main-content-wrapper">
+            <div class="content">
+                <header class="page-title">
+                    <p>Source</p>
+                    <h1>array/index.ts</h1>
+                </header>
+                
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import type { Dictionary } from "../types";
+
+/**
+ * Convert an array to an object
+ * @method
+ * @param arr {Array&lt;T>} The array to convert
+ * @param key {string=} The key as object's key
+ * @return {Record&lt;string, T>}
+ *
+ * @example
+ * toObject([{ id: 1 , value: "foo" }, { id: 2, value: "bar" }], "id")
+ * // {"1": { id: 1 , value: "foo" }, "2": { id: 2, value: "bar" }}
+ * @category Array
+ * @version v0.1.0
+ */
+export const toObject = &lt;T>(
+  arr: Array&lt;T>,
+  key?: string | boolean,
+): Dictionary&lt;T> => {
+  return arr.reduce((acc, each: T | Dictionary&lt;T>, idx) => {
+    if (!each) return acc;
+    if (key === true) {
+      acc[idx] = each as T;
+    } else if (key &amp;&amp; (each as Dictionary&lt;T>)[key]) {
+      acc[(each as never)[key]] = each as T;
+    } else {
+      acc[JSON.stringify(each)] = each as T;
+    }
+    return acc;
+  }, {} as Dictionary&lt;T>);
+};
+
+/**
+ * Unique array's elements
+ * @method
+ * @param arr {Array&lt;T>} The array to be uniquefy
+ * @return {Array&lt;T>} The unique array
+ *
+ * @example
+ * uniqueArray([1, 1, 2, 2])
+ * // [1, 2]
+ * @category Array
+ * @version v0.1.0
+ */
+export const uniqueArray = &lt;T>(arr: T[]): T[] => [...new Set(arr)];
+
+/**
+ * Unique array of object's elements by key
+ * @method
+ * @param arr {Array&lt;T>} The array of object to be uniquefy
+ * @param key {string} The key to inspect
+ * @return {Array&lt;T>} The unique array of object
+ * @example
+ * uniqueArray([{ x: 1, y: 1 }, { x: 2, y: 1 }, { x: 2, y: 2 }])
+ * // [{ x: 1, y: 1}, { x: 2, y: 2 }]
+ * @category Array
+ * @version v0.1.0
+ */
+export const uniqueArrayByKey = &lt;T extends Record&lt;string, any>>(
+  arr: T[],
+  key: string,
+): T[] => [...new Map(arr.map((v) => [v[key], v])).values()];
+
+/**
+ * Move an element to provided index
+ * @method
+ * @param arr {Array&lt;T>} The array to modify
+ * @param from {number} The index of the element
+ * @param to {number} The index of destination
+ * @return {Array&lt;T>}
+ * @example
+ * move([1, 2, 3, 4], 0, 3)
+ * // [2, 3, 4, 1]
+ * @category Array
+ * @version v0.1.0
+ */
+export const move = &lt;T>(arr: T[], from: number, to: number): T[] => {
+  arr.splice(to, 0, arr.splice(from, 1)[0]);
+  return arr;
+};
+
+/**
+ * Cartesian product of multiple arrays
+ *
+ * Credits: https://gist.github.com/ssippe/1f92625532eef28be6974f898efb23ef#gistcomment-3530882
+ * @method
+ * @param sets {...T[][]} The array(s) to be combine
+ * @return {T[][]} Two-dimensional array of combination
+ * @example
+ * cartesian([1,2],[10,20],[100,200,300])
+ * // [ [ 1, 10, 100 ],
+ // [ 1, 10, 200 ],
+ // [ 1, 10, 300 ],
+ // [ 1, 20, 200 ],
+ // [ 1, 20, 300 ],
+ // [ 2, 10, 100 ],
+ // [ 1, 20, 100 ],
+ // [ 2, 10, 200 ],
+ // [ 2, 10, 300 ],
+ // [ 2, 20, 100 ],
+ // [ 2, 20, 200 ],
+ // [ 2, 20, 300 ] ]
+ * @category Array
+ * @version v0.1.0
+ */
+export const cartesian = &lt;T>(...sets: T[][]): T[][] =>
+  sets.reduce&lt;T[][]>(
+    (accSets, set) =>
+      accSets.flatMap((accSet) => set.map((value) => [...accSet, value])),
+    [[]],
+  );
+
+/**
+ * Get the difference of two array
+ * @method
+ * @param left {T[]} The array to inspect
+ * @param right {T[]} The array to exclude
+ * @param key {string} The key to inspect
+ * @return {T[]} The excluded array of item
+ * @example
+ * differenceBy([{ x: 1 }, { x: 2 }], [{ x: 2 }, { x: 3 }], "x")
+ * // [{ x: 1 }]
+ * @category Array
+ * @version v0.1.0
+ */
+export const differenceBy = &lt;T>(left: T[], right: T[], key: string): T[] => {
+  return left.filter(
+    (v) => !right.some((x) => (x as any)[key] === (v as any)[key]),
+  );
+};
+
+/**
+ * Get the difference of two array of object
+ * @method
+ * @param left {T[]} The array to inspect
+ * @param right {T[]} The array to exclude
+ * @return {T[]} The excluded array of item
+ * @example
+ * difference([1, 2], [2, 3])
+ * // [1]
+ * @category Array
+ * @version v0.1.0
+ */
+export const difference = &lt;T>(left: T[], right: T[]): T[] => {
+  return left.filter((v) => !right.some((x) => x === v));
+};
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+            </div>
+            
+            <footer class="footer">
+                <div class="content has-text-centered">
+                    <p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.10</a></p>
+                    <p class="sidebar-created-by">
+                        <a href="https://github.com/SoftwareBrothers/better-docs" target="_blank">BetterDocs theme</a> provided with <i class="fas fa-heart"></i> by
+                        <a href="http://softwarebrothers.co" target="_blank">SoftwareBrothers - JavaScript Development Agency</a>
+                    </p>
+                </div>
+            </footer>
+            
+        </div>
+        <div id="side-nav" class="side-nav">
+        </div>
+    </div>
+<script src="scripts/app.min.js"></script>
+<script>PR.prettyPrint();</script>
+<script src="scripts/linenumber.js"> </script>
+
+
+</body>
+</html>

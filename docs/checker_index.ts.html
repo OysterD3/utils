@@ -1,0 +1,203 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title> checker/index.ts</title>
+
+  <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="./build/entry.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,400,700|Inconsolata,700" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+  <link type="text/css" rel="stylesheet" href="https://jmblog.github.io/color-themes-for-google-code-prettify/themes/tomorrow-night.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/app.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/iframe.css">
+  <link type="text/css" rel="stylesheet" href="">
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+  
+</head>
+
+
+
+<body class="layout small-header">
+    <div id="stickyNavbarOverlay"></div>
+    
+
+<div class="top-nav">
+    <div class="inner">
+        <a id="hamburger" role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+        </a>
+        <div class="logo">
+            
+            
+        </div>
+        <div class="menu">
+            
+            <div class="navigation">
+                <a
+                    href="index.html"
+                    class="link"
+                >
+                    Documentation
+                </a>
+                
+                
+                
+            </div>
+        </div>
+    </div>
+</div>
+    <div id="main">
+        <div
+            class="sidebar "
+            id="sidebarNav"
+        >
+            
+            <nav>
+                
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"></div><div class="category"><h2>Array</h2><h3>Global</h3><ul><li><a href="global.html#cartesian">cartesian</a></li><li><a href="global.html#difference">difference</a></li><li><a href="global.html#differenceBy">differenceBy</a></li><li><a href="global.html#move">move</a></li><li><a href="global.html#toObject">toObject</a></li><li><a href="global.html#uniqueArray">uniqueArray</a></li><li><a href="global.html#uniqueArrayByKey">uniqueArrayByKey</a></li></ul></div><div class="category"><h2>Browser</h2><h3>Global</h3><ul><li><a href="global.html#deleteCookie">deleteCookie</a></li><li><a href="global.html#getCookie">getCookie</a></li><li><a href="global.html#setCookie">setCookie</a></li></ul></div><div class="category"><h2>Checker</h2><h3>Global</h3><ul><li><a href="global.html#isEqual">isEqual</a></li><li><a href="global.html#isFalsey">isFalsey</a></li><li><a href="global.html#isObject">isObject</a></li></ul></div><div class="category"><h2>Collection</h2><h3>Global</h3><ul><li><a href="global.html#deepClone">deepClone</a></li><li><a href="global.html#get">get</a></li><li><a href="global.html#has">has</a></li></ul></div><div class="category"><h2>DOM</h2><h3>Global</h3><ul><li><a href="global.html#getAttribute">getAttribute</a></li><li><a href="global.html#getElement">getElement</a></li><li><a href="global.html#off">off</a></li><li><a href="global.html#on">on</a></li></ul></div><div class="category"><h2>Function</h2><h3>Global</h3><ul><li><a href="global.html#debounce">debounce</a></li></ul></div><div class="category"><h2>Number</h2><h3>Global</h3><ul><li><a href="global.html#clamp">clamp</a></li><li><a href="global.html#formatMoney">formatMoney</a></li><li><a href="global.html#random">random</a></li></ul></div><div class="category"><h2>String</h2><h3>Global</h3><ul><li><a href="global.html#slugify">slugify</a></li><li><a href="global.html#truncate">truncate</a></li></ul></div>
+                
+            </nav>
+        </div>
+        <div class="core" id="main-content-wrapper">
+            <div class="content">
+                <header class="page-title">
+                    <p>Source</p>
+                    <h1>checker/index.ts</h1>
+                </header>
+                
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * Check value is undefined, null, empty string, empty set,
+ * empty map, empty array, empty object, negative value and of course false
+ * @method
+ * @param val {any} The value to inspect
+ * @return {boolean}
+ * @example
+ * isFalsey(0) // false
+ * isFalsey(-1) // true
+ * isFalsey(false) // true
+ * @category Checker
+ * @version v0.1.0
+ */
+export const isFalsey = (val: any): boolean => {
+  if (val instanceof Map || val instanceof Set) {
+    return val.size === 0;
+  }
+  if (Object.prototype.toString.call(val) === "[object Object]") {
+    return Object.keys(val).length === 0;
+  }
+  if (Array.isArray(val)) {
+    return val.length === 0;
+  }
+  return (
+    val === undefined ||
+    val === null ||
+    val === "" ||
+    val &lt;= -1 ||
+    val === false
+  );
+};
+
+/**
+ * Check value is object
+ * @method
+ * @param val {any} The value to inspect
+ * @return {boolean}
+ * @example
+ * isObject({}) // true
+ * isObject([]) // false
+ * @category Checker
+ * @version v0.1.0
+ */
+export const isObject = (val: any): boolean =>
+  val !== null &amp;&amp; typeof val === "object" &amp;&amp; !Array.isArray(val);
+
+/**
+ * Check both value are equal
+ * @method
+ * @param val1 {any} The value to inspect
+ * @param val2 {any} The value to compare
+ * @return {boolean}
+ * @example
+ * isEqual([1], [1]) // true
+ * isEqual([1], [2]) // false
+ * @category Checker
+ * @version v0.1.0
+ */
+export const isEqual = (val1: any, val2: any): boolean => {
+  // Credits: https://dmitripavlutin.com/how-to-compare-objects-in-javascript
+  if (isObject(val1) &amp;&amp; isObject(val2)) {
+    const keys1 = Object.keys(val1);
+    const keys2 = Object.keys(val2);
+
+    if (keys1.length !== keys2.length) return false;
+
+    for (const key of keys1) {
+      const v1 = val1[key];
+      const v2 = val2[key];
+      const areObjects = isObject(v1) &amp;&amp; isObject(v2);
+      if ((areObjects &amp;&amp; !isEqual(v1, v2)) || (!areObjects &amp;&amp; v1 !== v2)) {
+        return false;
+      }
+    }
+
+    return true;
+  }
+  if (Array.isArray(val1) &amp;&amp; Array.isArray(val2)) {
+    if (val1.length !== val2.length) return false;
+
+    const set1 = new Set(val1);
+    const set2 = new Set(val2);
+    return val1.every((v) => set2.has(v)) &amp;&amp; val2.every((v) => set1.has(v));
+  }
+  return val1 === val2;
+};
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+            </div>
+            
+            <footer class="footer">
+                <div class="content has-text-centered">
+                    <p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.10</a></p>
+                    <p class="sidebar-created-by">
+                        <a href="https://github.com/SoftwareBrothers/better-docs" target="_blank">BetterDocs theme</a> provided with <i class="fas fa-heart"></i> by
+                        <a href="http://softwarebrothers.co" target="_blank">SoftwareBrothers - JavaScript Development Agency</a>
+                    </p>
+                </div>
+            </footer>
+            
+        </div>
+        <div id="side-nav" class="side-nav">
+        </div>
+    </div>
+<script src="scripts/app.min.js"></script>
+<script>PR.prettyPrint();</script>
+<script src="scripts/linenumber.js"> </script>
+
+
+</body>
+</html>

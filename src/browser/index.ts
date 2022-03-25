@@ -1,3 +1,13 @@
+/**
+ * Set Cookies
+ * @method
+ * @param key {string} The Cookies key
+ * @param value {string} The Cookies value
+ * @param duration {number=} The Cookies duration
+ *
+ * @category Browser
+ * @version v0.1.0
+ */
 export const setCookie = (key: string, value: any, duration?: number): void => {
   let expires = "; expires=Mon, 30 Dec 2030 16:00:00 GMT";
   if (duration) {
@@ -8,6 +18,14 @@ export const setCookie = (key: string, value: any, duration?: number): void => {
   document.cookie = `${key}=${value || ""}${expires}; path=/; SameSite=Strict`;
 };
 
+/**
+ * Get Cookies value by key
+ * @method
+ * @param key {string} The Cookies key
+ * @return {string} The Cookies value
+ * @category Browser
+ * @version v0.1.0
+ */
 export const getCookie = (key: string): string => {
   return (
     document.cookie
@@ -17,6 +35,14 @@ export const getCookie = (key: string): string => {
   );
 };
 
+/**
+ * Delete Cookies value by key
+ * @method
+ * @param key {string} The Cookies key
+ * @param domain {boolean=} To delete a Cookies that bound to the domain
+ * @category Browser
+ * @version v0.1.0
+ */
 export const deleteCookie = (key: string, domain?: boolean): void => {
   let d;
   if (domain) {

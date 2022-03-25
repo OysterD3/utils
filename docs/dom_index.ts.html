@@ -1,0 +1,248 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title> dom/index.ts</title>
+
+  <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="./build/entry.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,400,700|Inconsolata,700" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+  <link type="text/css" rel="stylesheet" href="https://jmblog.github.io/color-themes-for-google-code-prettify/themes/tomorrow-night.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/app.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/iframe.css">
+  <link type="text/css" rel="stylesheet" href="">
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+  
+</head>
+
+
+
+<body class="layout small-header">
+    <div id="stickyNavbarOverlay"></div>
+    
+
+<div class="top-nav">
+    <div class="inner">
+        <a id="hamburger" role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+        </a>
+        <div class="logo">
+            
+            
+        </div>
+        <div class="menu">
+            
+            <div class="navigation">
+                <a
+                    href="index.html"
+                    class="link"
+                >
+                    Documentation
+                </a>
+                
+                
+                
+            </div>
+        </div>
+    </div>
+</div>
+    <div id="main">
+        <div
+            class="sidebar "
+            id="sidebarNav"
+        >
+            
+            <nav>
+                
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"></div><div class="category"><h2>Array</h2><h3>Global</h3><ul><li><a href="global.html#cartesian">cartesian</a></li><li><a href="global.html#difference">difference</a></li><li><a href="global.html#differenceBy">differenceBy</a></li><li><a href="global.html#move">move</a></li><li><a href="global.html#toObject">toObject</a></li><li><a href="global.html#uniqueArray">uniqueArray</a></li><li><a href="global.html#uniqueArrayByKey">uniqueArrayByKey</a></li></ul></div><div class="category"><h2>Browser</h2><h3>Global</h3><ul><li><a href="global.html#deleteCookie">deleteCookie</a></li><li><a href="global.html#getCookie">getCookie</a></li><li><a href="global.html#setCookie">setCookie</a></li></ul></div><div class="category"><h2>Checker</h2><h3>Global</h3><ul><li><a href="global.html#isEqual">isEqual</a></li><li><a href="global.html#isFalsey">isFalsey</a></li><li><a href="global.html#isObject">isObject</a></li></ul></div><div class="category"><h2>Collection</h2><h3>Global</h3><ul><li><a href="global.html#deepClone">deepClone</a></li><li><a href="global.html#get">get</a></li><li><a href="global.html#has">has</a></li></ul></div><div class="category"><h2>DOM</h2><h3>Global</h3><ul><li><a href="global.html#getAttribute">getAttribute</a></li><li><a href="global.html#getElement">getElement</a></li><li><a href="global.html#off">off</a></li><li><a href="global.html#on">on</a></li></ul></div><div class="category"><h2>Function</h2><h3>Global</h3><ul><li><a href="global.html#debounce">debounce</a></li></ul></div><div class="category"><h2>Number</h2><h3>Global</h3><ul><li><a href="global.html#clamp">clamp</a></li><li><a href="global.html#formatMoney">formatMoney</a></li><li><a href="global.html#random">random</a></li></ul></div><div class="category"><h2>String</h2><h3>Global</h3><ul><li><a href="global.html#slugify">slugify</a></li><li><a href="global.html#truncate">truncate</a></li></ul></div>
+                
+            </nav>
+        </div>
+        <div class="core" id="main-content-wrapper">
+            <div class="content">
+                <header class="page-title">
+                    <p>Source</p>
+                    <h1>dom/index.ts</h1>
+                </header>
+                
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import { Func } from "../types";
+
+/**
+ * Get value by attribute from DOM
+ * @method
+ * @param event {Event}
+ * @param htmlAttribute {string}
+ * @return {string?}
+ * @example
+ * // Vue.js
+ * &lt;ul @click="handleClick">
+ *   &lt;li data-id="1">1&lt;/li> // click target
+ *   &lt;li data-id="2">2&lt;/li>
+ * &lt;/ul>
+ *
+ * &lt;script>
+ *   export default {
+ *     methods: {
+ *       handleClick(e) {
+ *         const data = getAttribute(e, "data-id") // "1"
+ *       }
+ *     }
+ *   }
+ * &lt;/script>
+ * @category DOM
+ * @version v0.1.0
+ */
+export const getAttribute = (
+  event: Event,
+  htmlAttribute: string,
+): null | string => {
+  const { currentTarget = document.body } = event;
+  let { target } = event;
+  while (target !== currentTarget) {
+    if (target &amp;&amp; (target as HTMLElement).hasAttribute(htmlAttribute))
+      return (target as HTMLElement).getAttribute(htmlAttribute);
+    target = (target as HTMLElement).parentNode;
+  }
+  if (target &amp;&amp; (target as HTMLElement).hasAttribute(htmlAttribute))
+    return (target as HTMLElement).getAttribute(htmlAttribute);
+  return null;
+};
+
+/**
+ * Get DOM element by attribute from DOM
+ * @method
+ * @param event {Event}
+ * @param htmlAttribute {string}
+ * @return {HTMLElement?}
+ * @example
+ * // Vue.js
+ * &lt;ul @click="handleClick">
+ *   &lt;li data-id="1">1&lt;/li> // click target
+ *   &lt;li data-id="2">2&lt;/li>
+ * &lt;/ul>
+ *
+ * &lt;script>
+ *   export default {
+ *     methods: {
+ *       handleClick(e) {
+ *         const data = getAttribute(e, "data-id") // &lt;li>
+ *       }
+ *     }
+ *   }
+ * &lt;/script>
+ * @category DOM
+ * @version v0.1.0
+ */
+export const getElement = (
+  event: Event,
+  htmlAttribute: string,
+): HTMLElement | null => {
+  const { currentTarget = document.body } = event;
+  let { target } = event;
+  while (target !== currentTarget) {
+    if (target &amp;&amp; (target as HTMLElement).hasAttribute(htmlAttribute))
+      return target as HTMLElement;
+    target = (target as HTMLElement).parentNode;
+  }
+  if (target &amp;&amp; (target as HTMLElement).hasAttribute(htmlAttribute))
+    return target as HTMLElement;
+  return null;
+};
+
+/**
+ * Shorthand to add event listener
+ * @method
+ * @param element {Element | HTMLElement | Document | Window}
+ * @param event {DocumentEventMap}
+ * @param handler {Func}
+ * @example
+ * function say() {
+ *   console.log("Hey mama!")
+ * }
+ * on(window, "click", say)
+ * @category DOM
+ * @version v0.1.0
+ */
+export const on = (
+  element: Element | HTMLElement | Document | Window,
+  event: keyof DocumentEventMap,
+  handler: Func,
+) => {
+  if (element &amp;&amp; event) {
+    element.addEventListener(event, handler, false);
+  }
+};
+
+/**
+ * Shorthand to remove event listener
+ * @method
+ * @param element {Element | HTMLElement | Document | Window}
+ * @param event {DocumentEventMap}
+ * @param handler {Func}
+ * @example
+ * function say() {
+ *   console.log("Hey mama!")
+ * }
+ * on(window, "click", say)
+ * @category DOM
+ * @version v0.1.0
+ */
+export const off = (
+  element: Element | HTMLElement | Document | Window,
+  event: keyof DocumentEventMap,
+  handler: Func,
+) => {
+  if (element &amp;&amp; event) {
+    element.removeEventListener(event, handler, false);
+  }
+};
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+            </div>
+            
+            <footer class="footer">
+                <div class="content has-text-centered">
+                    <p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.10</a></p>
+                    <p class="sidebar-created-by">
+                        <a href="https://github.com/SoftwareBrothers/better-docs" target="_blank">BetterDocs theme</a> provided with <i class="fas fa-heart"></i> by
+                        <a href="http://softwarebrothers.co" target="_blank">SoftwareBrothers - JavaScript Development Agency</a>
+                    </p>
+                </div>
+            </footer>
+            
+        </div>
+        <div id="side-nav" class="side-nav">
+        </div>
+    </div>
+<script src="scripts/app.min.js"></script>
+<script>PR.prettyPrint();</script>
+<script src="scripts/linenumber.js"> </script>
+
+
+</body>
+</html>
