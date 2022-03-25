@@ -10,6 +10,9 @@
     "test": "vitest",
     "coverage": "vitest run --coverage"
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "homepage": "https://github.com/OysterD3/utils#readme",
   "bugs": {
     "url": "https://github.com/OysterD3/utils/issues"
