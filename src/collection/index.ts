@@ -4,6 +4,7 @@ import type { NestedObject, NonNullish, Nullable } from "../types";
  * Deep clone object or array
  * @method
  * @param value {T}
+ * @param hasFunctionOrUndefinedValue {boolean?}
  * @returns {T}
  * @example
  * const obj = { foo: { bar: 1 } }
@@ -13,14 +14,19 @@ import type { NestedObject, NonNullish, Nullable } from "../types";
  * @category Collection
  * @version v0.1.0
  */
-export const deepClone = <T>(value: T): T => {
+export const deepClone = <T>(
+  value: T,
+  hasFunctionOrUndefinedValue = false,
+): T => {
   if (Array.isArray(value)) return [...value] as unknown as T;
-  if (typeof value === "object")
+  if (typeof value === "object" && hasFunctionOrUndefinedValue)
     return Object.keys(value).reduce((acc, key) => {
       const temp = (value as never)[key];
       (acc as never)[key] = deepClone(temp);
       return acc;
     }, {} as T);
+  if (typeof value === "object" && !hasFunctionOrUndefinedValue)
+    return JSON.parse(JSON.stringify(value));
   return value;
 };
 

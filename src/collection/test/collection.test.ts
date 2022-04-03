@@ -22,6 +22,29 @@ describe("test deepClone", () => {
     expect(obj.bar.baz).toBe(2);
     expect(clone.bar.baz).toBe(4);
   });
+
+  it("should erase function", () => {
+    const clone = deepClone<{ foo: number; bar: () => number }>({
+      foo: 1,
+      bar() {
+        return this.foo;
+      },
+    });
+    expect(clone.bar).toBe(undefined);
+  });
+
+  it("should not erase function", () => {
+    const clone = deepClone<{ foo: number; bar: () => number }>(
+      {
+        foo: 1,
+        bar() {
+          return this.foo;
+        },
+      },
+      true,
+    );
+    expect(clone.bar()).toBe(clone.foo);
+  });
 });
 
 describe("test has", () => {
