@@ -42,3 +42,19 @@ export const slugify = (str: string): string => {
     .replace(/[-]+/g, "-")
     .replace(/[^\w-]+/g, "");
 };
+
+/**
+ * Capitalize provided string
+ * @method
+ * @param str {string} The string to be capitalized
+ * @example
+ * capitalize("Lorem ipsum dolor sit amet") // "Lorem Ipsum Dolor Sit Amet"
+ * @category String
+ * @version v0.3.0
+ */
+export const capitalize = (str: string): string => {
+  return str
+    .split(" ")
+    .map((v) => v.charAt(0).toUpperCase() + v.substring(1))
+    .join(" ");
+};
