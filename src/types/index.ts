@@ -13,3 +13,5 @@ export type NestedObject = {
 export interface Func {
   (): void;
 }
+
+export type Modifier = string | { [modifier: string]: boolean };
