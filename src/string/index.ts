@@ -58,3 +58,18 @@ export const capitalize = (str: string): string => {
     .map((v) => v.charAt(0).toUpperCase() + v.substring(1))
     .join(" ");
 };
+
+/**
+ * Convert hyphen case to pascal case
+ * @method
+ * @param str {string} Hyphen case string
+ * @return {string}
+ * @example
+ * hyphenToPascalCase("Lorem-ipsum-dolor-sit-amet") // "LoremIpsumDolorSitAmet"
+ * @category String
+ * @version v0.3.0
+ */
+export const hyphenToPascalCase = (str: string): string => {
+  const rawPascalName = str.replace(/-./g, (s) => s[1].toUpperCase());
+  return rawPascalName.charAt(0).toUpperCase() + rawPascalName.substring(1);
+};

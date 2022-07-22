@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { capitalize, slugify, truncate } from "../index";
+import { capitalize, hyphenToPascalCase, slugify, truncate } from "../index";
 
 describe("test truncate", () => {
   it("should truncate if more than 3 words", () => {
@@ -21,6 +21,14 @@ describe("test capitalize", () => {
   it("should return Lorem Ipsum Dolor Sit Amet", () => {
     expect(capitalize("Lorem ipsum dolor sit amet")).toBe(
       "Lorem Ipsum Dolor Sit Amet",
+    );
+  });
+});
+
+describe("test hyphenToPascalCase", () => {
+  it("should return LoremIpsumDolorSitAmet", () => {
+    expect(hyphenToPascalCase("Lorem-ipsum-dolor-sit-amet")).toBe(
+      "LoremIpsumDolorSitAmet",
     );
   });
 });
