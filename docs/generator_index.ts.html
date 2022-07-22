@@ -7,7 +7,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title> string/index.ts</title>
+  <title> generator/index.ts</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -76,7 +76,7 @@
             <div class="content">
                 <header class="page-title">
                     <p>Source</p>
-                    <h1>string/index.ts</h1>
+                    <h1>generator/index.ts</h1>
                 </header>
                 
 
@@ -85,80 +85,55 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>/**
- * Truncate string if exceed specific length, pad end with ellipsis if any
- * @method
- * @param str {string} The string to truncate
- * @param length {number=} The maximum number of characters
- * @param ellipsis {string=} The string pad at the end
- * @return {string} Returns truncated string
- * @example
- * truncate("abcd", 3) // "abc"
- * truncate("abcd", 3, "...") // "abc..."
- * @category String
- * @version v0.1.0
- */
-export const truncate = (
-  str: string,
-  length = 100,
-  ellipsis?: string,
+            <pre class="prettyprint source linenums"><code>import type { Modifier } from "../types";
+
+const _formatModifier = (
+  be: string,
+  modifiers: Modifier | Modifier[],
 ): string => {
-  if (str.length > length)
-    return ellipsis
-      ? `${str.substring(0, length)}${ellipsis}`
-      : str.substring(0, length);
-  return str;
+  if (typeof modifiers === "string") return ` ${be}--${modifiers}`;
+
+  if (Array.isArray(modifiers)) {
+    return modifiers.reduce(
+      (acc: string, curr) => acc + _formatModifier(be, curr),
+      "",
+    );
+  }
+
+  return Object.keys(modifiers).reduce((acc, curr) => {
+    if (modifiers[curr]) return acc + _formatModifier(be, curr);
+    return acc;
+  }, "");
 };
 
 /**
- * To slugify simple string, if you want to handle complex string,
- * you can check out https://www.npmjs.com/package/slugify.
- * Credits: https://stackoverflow.com/questions/1053902/how-to-convert-a-title-to-a-url-slug-in-jquery#comment34216351_1054862
+ * Generate Block Element Modifier string
+ * @typedef {string | Record&lt;string, boolean>} Modifier
  * @method
- * @param str {string} The string to slugify
- * @return {string} Returns slugified string
+ * @param name {string} Block name
+ * @return {generateBEM~string}
  * @example
- * slugify("THIS- IS AN    URL") // "this-is-an-url"
- * @category String
- * @version v0.1.0
- */
-export const slugify = (str: string): string => {
-  return str
-    .toLowerCase()
-    .replace(/ /g, "-")
-    .replace(/[-]+/g, "-")
-    .replace(/[^\w-]+/g, "");
-};
-
-/**
- * Capitalize provided string
- * @method
- * @param str {string} The string to be capitalized
- * @example
- * capitalize("Lorem ipsum dolor sit amet") // "Lorem Ipsum Dolor Sit Amet"
- * @category String
+ * generateBEM("facil-button")() // "facil-button"
+ * generateBEM("facil-button")("block") // "facil-button__block"
+ * @category Generator
  * @version v0.3.0
  */
-export const capitalize = (str: string): string => {
-  return str
-    .split(" ")
-    .map((v) => v.charAt(0).toUpperCase() + v.substring(1))
-    .join(" ");
-};
-
-/**
- * Convert hyphen case to pascal case
- * @method
- * @param str {string} Hyphen case string
- * @return {string}
- * @example
- * hyphenToPascalCase("Lorem-ipsum-dolor-sit-amet") // "LoremIpsumDolorSitAmet"
- * @category String
- * @version v0.3.0
- */
-export const hyphenToPascalCase = (str: string): string => {
-  const rawPascalName = str.replace(/-./g, (s) => s[1].toUpperCase());
-  return rawPascalName.charAt(0).toUpperCase() + rawPascalName.substring(1);
+export const generateBEM = (name: string) => {
+  /**
+   * @param {Modifier | Modifier[]} elementOrModifiers=
+   * @param {Modifier | Modifier[]} modifiers=
+   */
+  return (
+    elementOrModifiers?: Modifier | Modifier[],
+    modifiers?: Modifier | Modifier[],
+  ): string => {
+    if (elementOrModifiers &amp;&amp; typeof elementOrModifiers !== "string") {
+      modifiers = elementOrModifiers;
+      elementOrModifiers = "";
+    }
+    const be = elementOrModifiers ? `${name}__${elementOrModifiers}` : name;
+    return modifiers ? be + _formatModifier(be, modifiers) : be;
+  };
 };
 </code></pre>
         </article>
